@@ -1,0 +1,50 @@
+div.issue {
+    clear: both;
+    position: relative;
+}
+div.issue div.avatar {
+    height: 100%;
+    float: left;
+    width: 20%;
+    max-width: 70px;
+    padding: 10px;
+}
+div.issue div.avatar img {
+    width: 100%;
+    border-radius: 50%;
+}
+div.issue div.issueInfo {
+    margin-left: 20%;
+}
+div.issueInfo div.number {
+    font-size: 70%;
+    color: gray;
+}
+div.issueInfo a, div.filtered-results div.see-more button {
+    background: none;
+    border: none;
+    font-size: 90%;
+    color: blue;
+}
+div.issueInfo a{
+    display: block;
+}
+div.issueInfo a:hover, div.filtered-results div.see-more button:hover {
+    text-decoration: none;
+    color: darkblue;
+}
+div.issueInfo div.labels strong {
+    display: block;
+}
+div.issueInfo div.labels div.label {
+    background-color:darkgray;
+    color:  lightgray;
+    padding: 0px 5px;
+    margin-top: 2px;
+}
+div.filtered-results div.see-more {
+    text-align: right;
+}
+div.filtered-results {
+    margin-top: 5px;
+}
