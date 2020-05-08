@@ -2,10 +2,12 @@ import React from 'react';
 import './App.css';
 import Searchbox from './components/Searchbox';
 import FilteredResults from './components/FilteredResults';
+import Fetch from './util/fetch';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {issues: this.findIssueByNumber(window.location.hash)};  
+    this.state = {issues: this.findIssueByNumber(window.location.hash)};
   }
 
   componentDidMount() {
@@ -23,7 +25,7 @@ class App extends React.Component {
       <div className="App">
         <div className="col-lg-4">&nbsp;</div>
         <div className="col-lg-4">
-          <Searchbox issues={this.props.issues} maxResults={8} selectedIssue={this.state.issues[0] && window.location.hash ? this.state.issues[0].title: null} />
+          <Searchbox fetchByTitle={Fetch.fetchIssuesByTitle} maxResults={8}  />
           <FilteredResults issues={this.state.issues} maxResults={10} />
         </div>
         <div className="col-lg-4">&nbsp;</div>

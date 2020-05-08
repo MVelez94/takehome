@@ -44,3 +44,11 @@ div.search-input span button {
 div.search-input span button:hover {
     border: 1px black solid;
 }
+div.search-input div.error {
+    color: red;
+    text-align: center;
+    font-size: 90%;
+}
+div.search-input div.loading {
+    font-size: 90%;
+}
