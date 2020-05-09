@@ -22,7 +22,7 @@ export default class FilteredResults extends React.Component {
                                     <div className="labels">
                                         <strong>Labels</strong>
                                         {i.labels.length > 0 ? 
-                                            i.labels.map((l, n) => <div className="label" key={i.number + "-" + n}>{l.name}</div>) 
+                                            i.labels.map((l, n) => <div style={{backgroundColor: `rgb(${l.color})`}} className="label" key={i.number + "-" + n}>{l.name}</div>) 
                                         : <div>This issue has no labels</div>}
                                     </div>
                                     <a rel="noopener noreferrer" target="_blank" href={i.html_url}>Go to issue</a>

@@ -1,27 +1,33 @@
-div.search-input {
+form.search-input {
     width: 100%;
     position: relative;
 }
-div.search-input input {
+form.search-input input {
     width: 100%;
     border-radius: 5px;
     border: none;
     background-color: lightblue;
 }
-div.search-input input, div.search-input div.preliminary-results div {
+form.search-input input, form.search-input div.preliminary-results div {
     padding: 5px;
 }
-div.search-input div.preliminary-results a {
+form.search-input button:first-of-type {
+    display: none;
+}
+form.search-input div.preliminary-results button {
+    border: none;
+    background: none;
     border-bottom: 1px black solid;
     display: block;
     text-decoration: none;
     color: black;
+    width: 100%;
 }
-div.search-input div.preliminary-results a:focus, div.search-input div.preliminary-results a:hover {
+form.search-input div.preliminary-results button:focus, form.search-input div.preliminary-results button:hover {
     background-color: lightcyan;
     color: blue;
 }
-div.search-input div.preliminary-results {
+form.search-input div.preliminary-results {
     margin-top: 5px;
     position: absolute;
     width: 100%;
@@ -31,24 +37,21 @@ div.search-input div.preliminary-results {
     background-color: lightblue;
     z-index: 1;
 }
-div.search-input span {
+form.search-input span {
     background-color: gray;
     padding: 5px;
     max-width: 100%;
 }
-div.search-input span button {
+form.search-input span button {
     background: none;
     border: none;
     padding: none;
 }
-div.search-input span button:hover {
-    border: 1px black solid;
-}
-div.search-input div.error {
+form.search-input div.error {
     color: red;
     text-align: center;
     font-size: 90%;
 }
-div.search-input div.loading {
+form.search-input div.loading {
     font-size: 90%;
 }

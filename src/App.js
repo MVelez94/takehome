@@ -7,19 +7,24 @@ import Fetch from './util/fetch';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {issues: this.findIssueByNumber(window.location.hash)};
+    this.state = {issues: []};
   }
 
   componentDidMount() {
     window.onhashchange = () => {
-      this.setState({issues: this.findIssueByNumber(window.location.hash)});
-    }
+      this.findIssuesByTitle(window.location.hash)
+      .then(response => response.json())
+      .then(body => body.items || body)
+      .then(issues => this.setState({issues}));
+    };
+    window.onhashchange();
   }
 
-  findIssueByNumber(n) {
-    let number = parseInt(n.replace("#", ""));
-    return this.props.issues.filter(i => i.number === number || n.length === 0);
+  findIssuesByTitle(title) {
+    title = title.replace("#", "");
+    return title.length > 0 ? Fetch.fetchIssuesByTitle(unescape(title)) : Fetch.fetchIssueByNumber();
   }
+
   render() {
     return (
       <div className="App">

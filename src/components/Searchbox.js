@@ -42,18 +42,27 @@ export default class Searchbox extends React.Component {
         } else this.setState({issues: []});
         
     }
+
+    changeHash(e) {
+        if (e.nativeEvent.submitter.formAction) {
+            window.location.hash = e.target.elements[0].value;
+        }
+        this.setState({issues: []});
+    }
+
     render () {
         return  (
-            <div className="search-input">
+            <form onSubmit={this.changeHash.bind(this)} className="search-input">
                 <h3>Enter your search terms</h3>               
                     <input ref={this.ref} onChange={e => this.filterResults(e.target.value)} />
+                    <button></button>
                     <div className="preliminary-results" style={{visibility: this.state.issues.length > 0 ? "visible" : null}}>
-                        {this.state.issues.map((i) => <a href={"#" + escape(i.title)} onClick={() => this.setState({issues: []})} key={i.number}>{i.title}</a>)}
+                        {this.state.issues.map((i) => <button formAction={"#" + escape(i.title)} key={i.number}>{i.title}</button>)}
                     </div>
                     {this.state.error ? <div className="error">{this.state.error}</div> : null}
                     {this.state.loading ? <div className="loading">
                 <img src="http://www.ajaxload.info/cache/FF/FF/FF/7B/6F/E8/1-1.gif"/> Loading...</div> : null}
-            </div>
+            </form>
         );
     }
 }

@@ -12,11 +12,11 @@ function fetchEndpoint(endpoint, queryParams = null) {
 }
 
 function fetchIssuesByTitle(title) {
-    return fetchEndpoint(GITHUB_SEARCH_ENDPOINT, {q: title + " in:title repo:facebook/react"})
+    return fetchEndpoint(GITHUB_SEARCH_ENDPOINT, {q: `"${title}"` + " in:title repo:facebook/react"})
 }
 
 function fetchIssueByNumber(number) {
-    return fetchEndpoint(GITHUB_ISSUE_ENDPOINT + "/" + number);
+    return fetchEndpoint(GITHUB_ISSUE_ENDPOINT + (number ? "/"+number : ""));
 }
 
 export default {fetchIssueByNumber, fetchIssuesByTitle};
