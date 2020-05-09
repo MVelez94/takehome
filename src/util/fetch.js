@@ -8,11 +8,11 @@ function fetchEndpoint(endpoint, queryParams = null) {
         params = new URLSearchParams(queryParams);
         querySeparator = "?";
     }
-    return fetch(endpoint.concat(querySeparator).concat(params.toString()));
+    return fetch(endpoint.concat(querySeparator).concat(params.toString())).then(response => response.json())
 }
 
 function fetchIssuesByTitle(title) {
-    return fetchEndpoint(GITHUB_SEARCH_ENDPOINT, {q: `"${title}"` + " in:title repo:facebook/react"})
+    return fetchEndpoint(GITHUB_SEARCH_ENDPOINT, {q: `"${title}" in:title repo:facebook/react`})
 }
 
 function fetchIssueByNumber(number) {

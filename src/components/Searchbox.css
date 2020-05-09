@@ -47,11 +47,3 @@ form.search-input span button {
     border: none;
     padding: none;
 }
-form.search-input div.error {
-    color: red;
-    text-align: center;
-    font-size: 90%;
-}
-form.search-input div.loading {
-    font-size: 90%;
-}

@@ -38,7 +38,7 @@ div.issueInfo div.labels strong {
 }
 div.issueInfo div.labels div.label {
     background-color:darkgray;
-    color:  lightgray;
+    color:  black;
     padding: 0px 5px;
     margin-top: 2px;
 }

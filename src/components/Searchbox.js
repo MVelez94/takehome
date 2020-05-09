@@ -26,19 +26,14 @@ export default class Searchbox extends React.Component {
     filterResults(value) {
         if (value.length >= 4){
             this.props.fetchByTitle(value)
-            .then(response => {
-                this.setState({loading: true});
-                return response;
-            })
-            .then(response => response.json())
             .then(json => json.items.reduce((acc, val, i) => {
                     if(i < this.props.maxResults) {
                         acc.push(val);
                     }
                     return acc;
                 }, []))
-            .then(issues => this.setState({issues: issues, error: null, loading: false}))
-            .catch(err => this.setState({error: "We have trouble contacting GitHub (we may have run out of our allowed API calls/minute)", issues: [], loading: false}))
+            .then(issues => this.setState({issues: issues}));
+            /*.catch(err => this.setState({error: , issues: [], loading: false}))*/
         } else this.setState({issues: []});
         
     }
@@ -59,9 +54,7 @@ export default class Searchbox extends React.Component {
                     <div className="preliminary-results" style={{visibility: this.state.issues.length > 0 ? "visible" : null}}>
                         {this.state.issues.map((i) => <button formAction={"#" + escape(i.title)} key={i.number}>{i.title}</button>)}
                     </div>
-                    {this.state.error ? <div className="error">{this.state.error}</div> : null}
-                    {this.state.loading ? <div className="loading">
-                <img src="http://www.ajaxload.info/cache/FF/FF/FF/7B/6F/E8/1-1.gif"/> Loading...</div> : null}
+                    
             </form>
         );
     }
