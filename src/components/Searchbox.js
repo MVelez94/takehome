@@ -1,26 +1,14 @@
 import React from 'react';
 import './Searchbox.css';
 
+const ARROW_DOWN = 40;
+const ARROW_UP = 38;
 
 export default class Searchbox extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {issues: []};
+        this.state = {issues: [], focus: 0};
         this.ref = React.createRef();
-    }
-
-    componentDidMount() {
-        this.focus();
-    }
-    componentDidUpdate() {
-        this.focus();
-    }
-
-    focus() {
-        let {issues, selectedIssue} = this.state;
-        if(issues.length === 0 && !selectedIssue) {
-            this.ref.current.focus();
-        }
     }
 
     filterResults(value) {
@@ -32,27 +20,45 @@ export default class Searchbox extends React.Component {
                     }
                     return acc;
                 }, []))
-            .then(issues => this.setState({issues: issues}));
-            /*.catch(err => this.setState({error: , issues: [], loading: false}))*/
+            .then(issues => this.setState({issues}));
         } else this.setState({issues: []});
         
     }
 
-    changeHash(e) {
+    changeHash = (e) => {
         if (e.nativeEvent.submitter.formAction) {
             window.location.hash = e.target.elements[0].value;
         }
-        this.setState({issues: []});
+        this.setState({issues: [], focus: 0});
     }
-
+    computeNewFocus = (diff) => {
+        let focus = (this.state.focus + diff) % (this.state.issues.length + 1);
+        this.setState({focus});
+    }
+    navigate = (e) => {
+        switch(e.keyCode) {
+            case ARROW_DOWN:
+                e.preventDefault();
+                this.computeNewFocus(1);
+                break;
+            case ARROW_UP:
+                e.preventDefault();
+                this.computeNewFocus(-1);
+                break;
+            default: break;
+        }
+    }
+    componentDidUpdate() {
+        this.ref.current.focus();
+    }
     render () {
         return  (
-            <form onSubmit={this.changeHash.bind(this)} className="search-input">
+            <form onSubmit={this.changeHash} className="search-input">
                 <h3>Enter your search terms</h3>               
-                    <input ref={this.ref} onChange={e => this.filterResults(e.target.value)} />
+                    <input onChange={e => this.filterResults(e.target.value)} ref={this.state.focus === 0 ? this.ref : null} onKeyDown={this.navigate} />
                     <button></button>
                     <div className="preliminary-results" style={{visibility: this.state.issues.length > 0 ? "visible" : null}}>
-                        {this.state.issues.map((i) => <button formAction={"#" + escape(i.title)} key={i.number}>{i.title}</button>)}
+                        {this.state.issues.map((i, n) => <button formAction={"#" + escape(i.title)} key={i.number} ref={this.state.focus === n+1 ? this.ref : null} onKeyDown={this.navigate}>{i.title}</button>)}
                     </div>
                     
             </form>

@@ -1,17 +1,26 @@
 import './FilteredResults.css';
 import React from 'react';
+import PaginationControls from './PaginationControls';
 
 export default class FilteredResults extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {issues: [], seeMore: false};
+        this.state = {page: 0, resultsPerPage: 5};
     }
-    
+
+    move = (diff) => {
+        let page = this.state.page + diff;
+        console.log(page);
+        if(page >= 0 && page < Math.ceil(this.props.issues.length/this.state.resultsPerPage)) {
+            this.setState({page});
+        }
+    }
+
     render () {
-        let rendered = 0;
-        let DOMissues = [];
-        for(const i of this.props.issues) {
-            DOMissues.push(<div key={i.number} className="issue">
+            let startIndex = this.state.page * this.state.resultsPerPage;
+            let endIndex = startIndex + this.state.resultsPerPage;
+            let DOMissues = this.props.issues.slice(startIndex, endIndex)
+            .map(i => <div key={i.number} className="issue">
                                 <div className="avatar">
                                     <a href={i.user.html_url}><img alt={i.user.login} title={i.user.login} src={i.user.avatar_url} /></a>
                                 </div>
@@ -28,19 +37,12 @@ export default class FilteredResults extends React.Component {
                                     <a rel="noopener noreferrer" target="_blank" href={i.html_url}>Go to issue</a>
                                 </div>
                             </div>);
-            if(++rendered >= this.props.maxResults) {
-                if(!this.state.seeMore)
-                    break;
-            }
-        }
-        DOMissues.push(<div key={rendered} className="see-more">
-                        <button onClick={() => this.setState({seeMore: !this.state.seeMore})}>
-                            {this.state.seeMore ? "See less" : "See more"}
-                        </button>
-                    </div>)
+            
         return (
             <div className="filtered-results">
+                <PaginationControls move={v => this.move(v)} />
                 {DOMissues}
+                <PaginationControls move={v => this.move(v)} />
             </div>
         );
     }

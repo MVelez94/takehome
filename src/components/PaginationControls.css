@@ -1,0 +1,17 @@
+div.controls {
+    text-align: center;
+}
+div.controls button {
+    padding: 0;
+    border: none;
+    background: none;
+}
+div.controls button:first-child {
+    float: left;
+}
+div.controls button:last-child {
+    float: right;
+}
+div.controls select {
+    border: none;
+}
