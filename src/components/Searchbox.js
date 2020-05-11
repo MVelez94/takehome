@@ -1,15 +1,16 @@
 import React from 'react';
 import './Searchbox.css';
 
-const ARROW_DOWN = 40;
-const ARROW_UP = 38;
-const ESCAPE = 27;
+
 export default class Searchbox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {issues: [], focus: 0};
         this.ref = React.createRef();
     }
+    static ARROW_DOWN = 40;
+    static ARROW_UP = 38;
+    static ESCAPE = 27;
 
     filterResults(value) {
         if (value.length >= 4){
@@ -37,15 +38,15 @@ export default class Searchbox extends React.Component {
     }
     navigate = (e) => {
         switch(e.keyCode) {
-            case ARROW_DOWN:
+            case Searchbox.ARROW_DOWN:
                 e.preventDefault();
                 this.computeNewFocus(1);
                 break;
-            case ARROW_UP:
+            case Searchbox.ARROW_UP:
                 e.preventDefault();
                 this.computeNewFocus(-1);
                 break;
-            case ESCAPE:
+            case Searchbox.ESCAPE:
                 e.preventDefault();
                 this.setState({issues: [], focus: 0});
                 break;

@@ -7,6 +7,7 @@ export default class FilteredResults extends React.Component {
         super(props);
         this.state = {page: 0, resultsPerPage: 3};
     }
+    static NO_LABELS = "This issue has no labels";
     totalPages() {
         return Math.ceil(this.props.issues.length/this.state.resultsPerPage);
     }
@@ -34,7 +35,6 @@ export default class FilteredResults extends React.Component {
     }
 
     render () {
-            console.log(this.state.page, this.state.resultsPerPage);
             let startIndex = this.state.page * this.state.resultsPerPage;
             let endIndex = startIndex + this.state.resultsPerPage;
             let DOMissues = this.props.issues.slice(startIndex, endIndex)
@@ -50,7 +50,7 @@ export default class FilteredResults extends React.Component {
                                         <strong>Labels</strong>
                                         {i.labels.length > 0 ? 
                                         i.labels.map((l, n) => <div style={{backgroundColor: `#${l.color}`}} className="label" key={i.number + "-" + n}>{l.name}</div>) 
-                                        : <div>This issue has no labels</div>}
+                                        : <div>{FilteredResults.NO_LABELS}</div>}
                                     </div>
                                     <a rel="noopener noreferrer" target="_blank" href={i.html_url}>Go to issue</a>
                                 </div>
