@@ -5,18 +5,36 @@ import PaginationControls from './PaginationControls';
 export default class FilteredResults extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {page: 0, resultsPerPage: 5};
+        this.state = {page: 0, resultsPerPage: 3};
+    }
+    totalPages() {
+        return Math.ceil(this.props.issues.length/this.state.resultsPerPage);
     }
 
     move = (diff) => {
         let page = this.state.page + diff;
-        console.log(page);
-        if(page >= 0 && page < Math.ceil(this.props.issues.length/this.state.resultsPerPage)) {
+        if(page >= 0 && page < this.totalPages()) {
             this.setState({page});
         }
     }
 
+    componentDidMount() {
+        window.onhashchange = () => this.setState({page: 0});
+    }
+
+    changeResultsPerPage = (rpp) => {
+        let page = parseInt(this.state.page * this.state.resultsPerPage /  rpp);
+        this.setState({resultsPerPage: rpp, page});
+    }
+
+    componentDidUpdate(prev) {
+        if(this.props.issues.length !== prev.issues.length) {
+            this.setState({page: 0});
+        }
+    }
+
     render () {
+            console.log(this.state.page, this.state.resultsPerPage);
             let startIndex = this.state.page * this.state.resultsPerPage;
             let endIndex = startIndex + this.state.resultsPerPage;
             let DOMissues = this.props.issues.slice(startIndex, endIndex)
@@ -40,9 +58,9 @@ export default class FilteredResults extends React.Component {
             
         return (
             <div className="filtered-results">
-                <PaginationControls move={v => this.move(v)} />
+                <PaginationControls move={this.move} options={[3,7,11]} page={this.changeResultsPerPage} resultsPerPage={this.state.resultsPerPage} />
                 {DOMissues}
-                <PaginationControls move={v => this.move(v)} />
+                <PaginationControls move={this.move} options={[3,7,11]} page={this.changeResultsPerPage} resultsPerPage={this.state.resultsPerPage} />
             </div>
         );
     }

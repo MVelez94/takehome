@@ -3,7 +3,7 @@ import './Searchbox.css';
 
 const ARROW_DOWN = 40;
 const ARROW_UP = 38;
-
+const ESCAPE = 27;
 export default class Searchbox extends React.Component {
     constructor(props) {
         super(props);
@@ -45,11 +45,15 @@ export default class Searchbox extends React.Component {
                 e.preventDefault();
                 this.computeNewFocus(-1);
                 break;
+            case ESCAPE:
+                e.preventDefault();
+                this.setState({issues: [], focus: 0});
+                break;
             default: break;
         }
     }
     componentDidUpdate() {
-        this.ref.current.focus();
+        this.ref.current && this.ref.current.focus();
     }
     render () {
         return  (

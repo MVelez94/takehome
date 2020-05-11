@@ -15,3 +15,13 @@ div.controls button:last-child {
 div.controls select {
     border: none;
 }
+div.controls div.resultsPerPage {
+    display: inline-block;
+}
+
+@media screen and (min-width: 770px) {
+    div.controls div.resultsPerPage div {
+        display: inline;
+    }
+}
+

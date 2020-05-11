@@ -32,10 +32,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="col-lg-4">&nbsp;</div>
-        <div className="col-lg-4">
+        <div className="content">
         {this.state.error ? <div className="error">{this.state.error}</div> : null}
         {this.state.loading ? <div className="loading">
-              <img src="/spinner.gif"/> Loading...</div> : null}
+              <img src="/spinner.gif" alt="Loading" /> Loading...</div> : null}
           <Searchbox fetchByTitle={t => this.findIssuesByTitle(t)} maxResults={8}  />
           <FilteredResults issues={this.state.issues} maxResults={10} />
         </div>

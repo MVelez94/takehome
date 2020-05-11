@@ -2,6 +2,21 @@
 div.App > div {
   float: left;
 }
+div.App > div:last-child, div.App > div:first-child {
+  width: 25%;
+}
+div.App div.content{
+  width: 50%;
+}
+@media screen and (max-width: 770px) {
+  div.App div.content{
+    width: 100%;
+    padding: 10px;
+  }
+  div.App > div:last-child, div.App > div:first-child {
+    display: none;
+  }
+}
 div.App div.error {
   color: red;
   text-align: center;
